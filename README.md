@@ -1,11 +1,11 @@
 # Implementing DES In Python
-In this project I write a basic implementation of the DES Block Cipher. It will encrypt and decrypt 64 bit blocks (in binary or hex) using 64 bit keys (Technically only 56 bits are needed, but the specification includes parity bits that are meant to be dropped, so I stuck with the 64 bit keys.
+For this project I wrote a basic implementation of the DES Block Cipher. It encrypts and decrypts 64 bit blocks (in binary or hex) using 64 bit keys (technically only 56 bits are needed, but the specification includes parity bits that are meant to be dropped, so I stuck with the 64 bit keys.)
 
 ---
 ### Overview of The Encryption   
 
 
-Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement.  
+Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement. It was created in the early 1970s by IBM in conjuction with the NSA. The cipher has a symmetric-key algorithm; it accepts only 64 bit datablocks and 64 bit keys. However, because 8 of those bits are designated for parity, the effective key length is 56, which makes DES susceptible to bruteforce attacks. The algorithm DES uses for encryption is fairly simple to understand, but a lot of thought went into its design [(here is the official standard)](https://csrc.nist.gov/csrc/media/publications/fips/46/3/archive/1999-10-25/documents/fips46-3.pdf). The encryption starts with by sending the message through an initial permutation. This type of thing is done quite a few times throughout the encryption and comes from the fact DES was designed with a hardware implementation in mind, and permutations are extremely easy to do with wires (just cross them). After this the input is split into two 32 bit blocks and the Rounds begin. DES is split into 16 Rounds where the subkey from the keyschedule (see below)
 
 
 #### *DES Encryption Function*
