@@ -4,10 +4,13 @@ In this project I write a basic implementation of the DES Block Cipher. It will 
 ---
 ### Overview of The Encryption    
 Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement.  
-<img src="FIPS_.png" width=300 align=right>
+
 
 #### DES Encryption Function
 This is the main function that outlines the overall structure of the DES Feistel Network. 
+
+<img src="FIPS_.png" width=300 align=right>
+
 ```python
 def encrypt(message, key):
 
@@ -22,7 +25,7 @@ def encrypt(message, key):
     print(' ' * 10, 'Left Half  ', 'Right Half ', 'Sub Key  ')
     for loop in range(16):
         left_half, right_half = round(left_half, right_half, key_schedule[loop])
-        if loop == 15: # For Some Reason The Algorithm Doesn't Swap The Last Two Keys So This Switches Them Back
+        if loop == 15: # The algorithm doesn't swap the last pair
             buffer = left_half
             left_half = right_half
             right_half = buffer
