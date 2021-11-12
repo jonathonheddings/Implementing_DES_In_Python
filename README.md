@@ -4,14 +4,16 @@ For this project I wrote a basic implementation of the DES Block Cipher. It encr
 ---
 ### Overview of The Encryption   
 
+<img src="FIPS_.png" width=325 align=right>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement. It was created in the early 1970s by IBM in conjuction with the NSA. The cipher has a symmetric-key algorithm; it accepts only 64 bit datablocks and 64 bit keys. However, because 8 of those bits are designated for parity, the effective key length is 56, which makes DES susceptible to bruteforce attacks. The algorithm DES uses for encryption is fairly simple to understand, but a lot of thought went into its design [here is the official standard]DES_FIPS_STANDARD.pdf) . 
 
-Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement. It was created in the early 1970s by IBM in conjuction with the NSA. The cipher has a symmetric-key algorithm; it accepts only 64 bit datablocks and 64 bit keys. However, because 8 of those bits are designated for parity, the effective key length is 56, which makes DES susceptible to bruteforce attacks. The algorithm DES uses for encryption is fairly simple to understand, but a lot of thought went into its design [(here is the official standard)](https://csrc.nist.gov/csrc/media/publications/fips/46/3/archive/1999-10-25/documents/fips46-3.pdf). The encryption starts with by sending the message through an initial permutation. This type of thing is done quite a few times throughout the encryption and comes from the fact DES was designed with a hardware implementation in mind, and permutations are extremely easy to do with wires (just cross them). After this the input is split into two 32 bit blocks and the Rounds begin. DES is split into 16 Rounds where the subkey from the keyschedule (see below)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;The encryption starts with by sending the message through an initial permutation. This type of thing is done quite a few times throughout the encryption and comes from the fact DES was designed with a hardware implementation in mind, and permutations are extremely easy to do with wires (just cross them). After this the input is split into two 32 bit blocks and the Rounds begin. DES is split into 16 Rounds where the subkey from the keyschedule (see below) is mixed into the right side of the input through the F function, then xor'ed into the left side to be stored as the next right side for the next round (it is crossed). The right side then goes to the left side untouched to become the new left side for the next round. This is what allows the structure to be invertable, and what makes it a Feistel Network. After the last round there is a final permutation which is the direct inverse of the initial permutation.
 
 
 #### *DES Encryption Function*
 This is the main function that outlines the overall structure of the DES Feistel Network. 
 
-<img src="FIPS_.png" width=325 align=right>
+
 
 ```python
 def encrypt(message, key):
