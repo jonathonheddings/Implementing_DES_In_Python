@@ -9,7 +9,7 @@ Despite the name DES is not longer the Data Encryption Standard as it was replac
 #### DES Encryption Function
 This is the main function that outlines the overall structure of the DES Feistel Network. 
 
-<img src="FIPS_.png" width=300 align=right>
+<img src="FIPS_.png" width=325 align=right>
 
 ```python
 def encrypt(message, key):
