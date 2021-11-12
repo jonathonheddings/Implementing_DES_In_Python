@@ -4,7 +4,7 @@ In this project I write a basic implementation of the DES Block Cipher. It will 
 ---
 ### Overview of The Encryption    
 Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement.  
-[Fesitel Network Diagram](FIPS_.png)
+<img src="FIPS_.png" width=300 align=right>
 
 #### DES Encryption Function
 This is the main function that outlines the overall structure of the DES Feistel Network. 
@@ -115,6 +115,64 @@ def generate_keys(intitial_state):
         key_schedule.append(permute((left_half + right_half), pc_2, 48))
     return key_schedule
 ```
+
+### Testing The Function:
+Here is the test code we're running first:
+```python
+test = '1011101011101010111011111011100011101011111000101011101011101011'   
+key = '908F6CA04B08D401'
+
+cyphertext = encrypt(test, key)
+print('Encrypted Result: ', len(cyphertext))
+print('Decrypted Result: ', bin_to_hex(decrypt(cyphertext, key), 64))
+```
+The output is as follows:
+```
+Data Being Encrypted:  BAEAEFB8EBE2BAEB
+After Initial Permutation:  B6490494FFFFDFF7
+           Left Half   Right Half  Sub Key
+Round:  1   FFFFDFF7   881A2A5E   286116BC04B8
+Round:  2   881A2A5E   3C8269B6   175644837424
+Round:  3   3C8269B6   83C9D38A   4A51C0680BA0
+Round:  4   83C9D38A   5531D493   18C16D90481F
+Round:  5   5531D493   D8740974   81410B471290
+Round:  6   D8740974   48245FBB   210BA5912169
+Round:  7   48245FBB   FDAEDCCE   913881229A04
+Round:  8   FDAEDCCE   A0268BF8   1126F05025B6
+Round:  9   A0268BF8   C489C856   20E81C84F105
+Round:  10   C489C856   64B1861B   042D222226E0
+Round:  11   64B1861B   98E503C7   E22C31F88903
+Round:  12   98E503C7   035B75AB   CDA60006461A
+Round:  13   035B75AB   5126B564   42969A5D3140
+Round:  14   5126B564   C6949812   7C9042A0C068
+Round:  15   C6949812   F67FEEB2   22C84A40BE06
+Round:  16   222421F1   F67FEEB2   8432D1089119
+Encrypted Result:  64
+Data Being Encrypted:       25EAB828A3FFA98B
+After Initial Permutation:  222421F1F67FEEB2
+           Left Half   Right Half  Sub Key
+Round:  1   F67FEEB2   C6949812   286116BC04B8
+Round:  2   C6949812   5126B564   175644837424
+Round:  3   5126B564   035B75AB   4A51C0680BA0
+Round:  4   035B75AB   98E503C7   18C16D90481F
+Round:  5   98E503C7   64B1861B   81410B471290
+Round:  6   64B1861B   C489C856   210BA5912169
+Round:  7   C489C856   A0268BF8   913881229A04
+Round:  8   A0268BF8   FDAEDCCE   1126F05025B6
+Round:  9   FDAEDCCE   48245FBB   20E81C84F105
+Round:  10   48245FBB   D8740974   042D222226E0
+Round:  11   D8740974   5531D493   E22C31F88903
+Round:  12   5531D493   83C9D38A   CDA60006461A
+Round:  13   83C9D38A   3C8269B6   42969A5D3140
+Round:  14   3C8269B6   881A2A5E   7C9042A0C068
+Round:  15   881A2A5E   FFFFDFF7   22C84A40BE06
+Round:  16   B6490494   FFFFDFF7   8432D1089119
+Decrypted Result:  BAEAEFB8EBE2BAEB
+```
+There are several things to note from the output of the function. If you look at the decryption rounds, they correspond to the upside down rows of the encryption rounds.
+The key schedule is also upside down. 
+
+Another important part of DES is that if I change the ***test*** variable by a single bit, the output will radically change. After changing one bit this is what I get for the cyphertext: D81E2D967868060F. Which is very different from the previous 25EAB828A3FFA98B value. This is extremely important to the security of the cipher. 
 
 ---
 ### Final Thoughts
