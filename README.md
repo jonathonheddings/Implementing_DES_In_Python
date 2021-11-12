@@ -2,11 +2,13 @@
 In this project I write a basic implementation of the DES Block Cipher. It will encrypt and decrypt 64 bit blocks (in binary or hex) using 64 bit keys (Technically only 56 bits are needed, but the specification includes parity bits that are meant to be dropped, so I stuck with the 64 bit keys.
 
 ---
-### Overview of The Encryption    
+### Overview of The Encryption   
+
+
 Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement.  
 
 
-#### DES Encryption Function
+#### *DES Encryption Function*
 This is the main function that outlines the overall structure of the DES Feistel Network. 
 
 <img src="FIPS_.png" width=325 align=right>
@@ -92,6 +94,8 @@ left_half, right_half = round(left_half, right_half, key_schedule[15 - loop])
 
 #### Key Schedule
 Lastly, we have to talk about how DES handles its key generation. 
+
+<img src="key_schedule.png" width=350 align=right>
 
 ```python
 def generate_keys(intitial_state):
