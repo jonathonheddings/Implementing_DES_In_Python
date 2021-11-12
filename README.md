@@ -4,7 +4,7 @@ In this project I write a basic implementation of the DES Block Cipher. It will 
 ---
 ### Overview of The Encryption    
 Despite the name DES is not longer the Data Encryption Standard as it was replaced by AES, but it is still an interesting Block Cipher to implement.  
-![Fesitel Network Diagram](/images/FIPS_.png)
+[Fesitel Network Diagram](FIPS_.png)
 
 #### DES Encryption Function
 This is the main function that outlines the overall structure of the DES Feistel Network. 
